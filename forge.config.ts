@@ -10,8 +10,8 @@ import pkg from "./package.json";
 
 const config: ForgeConfig = {
   packagerConfig: {
-    executableName: pkg.name, 
-    name: pkg.productName, 
+    executableName: pkg.name,
+    name: pkg.productName,
     asar: true,
   },
   rebuildConfig: {},

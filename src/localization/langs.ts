@@ -11,5 +11,4 @@ export default [
     nativeName: "Русский",
     prefix: "🇷🇺",
   },
-  
 ] satisfies Language[];
