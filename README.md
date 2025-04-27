@@ -1,9 +1,5 @@
 # electron-shadcn
 
-Electron in all its glory. Everything you will need to develop your beautiful desktop application.
-
-![Demo GIF](https://github.com/LuanRoger/electron-shadcn/blob/main/images/demo.gif)
-
 ## Libs and tools
 
 To develop a Electron app, you probably will need some UI, test, formatter, style or other kind of library or framework, so let me install and configure some of them to you.

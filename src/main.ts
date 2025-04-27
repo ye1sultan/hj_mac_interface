@@ -2,11 +2,11 @@ import { app, BrowserWindow } from "electron";
 import registerListeners from "./helpers/ipc/listeners-register";
 // "electron-squirrel-startup" seems broken when packaging with vite
 //import started from "electron-squirrel-startup";
-import path from "path";
 import {
   installExtension,
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
+import path from "path";
 
 const inDevelopment = process.env.NODE_ENV === "development";
 
@@ -33,6 +33,10 @@ function createWindow() {
     mainWindow.loadFile(
       path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
     );
+  }
+
+  if (inDevelopment) {
+    mainWindow.webContents.openDevTools();
   }
 }
 
