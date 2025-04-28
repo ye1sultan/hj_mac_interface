@@ -2,7 +2,7 @@
 
 ## Libs and tools
 
-To develop a Electron app, you probably will need some UI, test, formatter, style or other kind of library or framework, so let me install and configure some of them to you.
+To develop a Electron app, you probably will need some UI, formatter, style or other kind of library or framework, so let me install and configure some of them to you.
 
 ### Core 🏍️
 
@@ -28,19 +28,9 @@ To develop a Electron app, you probably will need some UI, test, formatter, styl
 - [TanStack Router](https://tanstack.com/router)
 - [Lucide](https://lucide.dev)
 
-### Test 🧪
-
-- [Vitest](https://vitest.dev)
-- [Playwright](https://playwright.dev)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-
 ### Packing and distribution 📦
 
 - [Electron Forge](https://www.electronforge.io)
-
-### CI/CD 🚀
-
-- Pre-configured [GitHub Actions workflow](https://github.com/LuanRoger/electron-shadcn/blob/main/.github/workflows/playwright.yml), for test with Playwright
 
 ### Project preferences 🎯
 
@@ -76,7 +66,6 @@ npx shadcn@canary add button
     ├── ./src/lib/
     ├── ./src/pages/
     ├── ./src/style/
-    └── ./src/tests/
 ```
 
 - `src/`: Main directory
@@ -91,7 +80,6 @@ npx shadcn@canary add button
   - `lib/`: Store libraries and other utilities
   - `pages/`: Store app's pages
   - `style/`: Store global styles
-  - `tests/`: Store tests (from Vitest and Playwright)
 
 ## NPM script
 
@@ -108,13 +96,6 @@ npm run <script>
 - `lint`: Run ESLint to lint the code
 - `format`: Run Prettier to check the code (it doesn't change the code)
 - `format:write`: Run Prettier to format the code
-- `test`: Run the default unit-test script (Vitest)
-- `test:watch`: Run the default unit-test script in watch mode (Vitest)
-- `test:unit`: Run the Vitest tests
-- `test:e2e`: Run the Playwright tests
-- `test:all`: Run all tests (Vitest and Playwright)
-
-> The test scripts involving Playwright require the app be builded before running the tests. So, before run the tests, run the `package`, `make` or `publish` script.
 
 ## How to use
 
