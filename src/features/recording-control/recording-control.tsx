@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { formatAnalysis } from "@/helpers/formatAnalysis";
 import { IAnalysisData } from "@/types/analyze";
 import { IPartialTranscript, ITranscript } from "@/types/transcript";
+import { IconDownload, IconMicrophoneFilled } from "@tabler/icons-react";
 import React, { useState } from "react";
 
 interface RecordingControlProps {
@@ -252,34 +253,49 @@ export function RecordingControl({
     return window.btoa(binary);
   }
 
-  return (
-    <div className="flex w-full flex-col items-center gap-2">
-      <div>{status}</div>
+  {
+    /* <div>{status}</div>
 
       {partialTranscript && (
         <div className="text-muted-foreground italic">
           {partialTranscript.text}
         </div>
-      )}
+      )} */
+  }
 
-      <div className="mt-4 flex gap-2">
-        {isRecording ? (
-          <Button onClick={stopRecording} disabled={!isRecording}>
-            Остановить запись
-          </Button>
-        ) : (
-          <Button onClick={startRecording} disabled={isRecording}>
-            Начать запись
-          </Button>
-        )}
+  return (
+    <div className="flex h-20 w-full items-center justify-center gap-4">
+      {isRecording ? (
         <Button
-          variant="secondary"
-          onClick={downloadTranscription}
-          disabled={isRecording || transcripts.length === 0}
+          onClick={stopRecording}
+          disabled={!isRecording}
+          variant="link"
+          size="icon"
+          className="animate-pulse text-red-500"
         >
-          Скачать Транскрипт
+          <IconMicrophoneFilled size={42} />
         </Button>
-      </div>
+      ) : (
+        <Button
+          onClick={startRecording}
+          disabled={isRecording}
+          variant="link"
+          size="icon"
+          className="text-blue-500"
+        >
+          <IconMicrophoneFilled size={42} />
+        </Button>
+      )}
+      {!(isRecording || transcripts.length === 0) && (
+        <Button
+          onClick={downloadTranscription}
+          variant="link"
+          size="icon"
+          className="text-blue-500"
+        >
+          <IconDownload size={42} />
+        </Button>
+      )}
     </div>
   );
 }

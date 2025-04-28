@@ -1,9 +1,9 @@
 "use client";
 
 import SectionTitle from "@/components/section-title/section-title";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ITranscript } from "@/types/transcript";
 import React, { useEffect, useRef, useState } from "react";
+import { mockSuggestions } from "./lib/const";
 import { SuggestionItem } from "./ui/suggestion-item/suggestion-item";
 
 interface ISuggestion {
@@ -25,7 +25,8 @@ export default function Suggestions({
     }
   }, [transcripts]);
 
-  const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
+  const [suggestions, setSuggestions] =
+    useState<ISuggestion[]>(mockSuggestions);
   const [lastProcessedId, setLastProcessedId] = useState<number | null>(null);
   const [lastProcessedText, setLastProcessedText] = useState<string | null>(
     null,
@@ -90,7 +91,7 @@ export default function Suggestions({
   }, [transcripts, lastProcessedId, lastProcessedText]);
 
   return (
-    <ScrollArea className="flex max-h-[500px] w-full flex-col overflow-y-auto p-4">
+    <div className="flex w-full flex-col">
       <SectionTitle title="Предложения" />
       <div className="grid h-full grid-cols-3 gap-4">
         {suggestions.map(
@@ -106,6 +107,6 @@ export default function Suggestions({
         )}
         <div ref={bottomRef} />
       </div>
-    </ScrollArea>
+    </div>
   );
 }

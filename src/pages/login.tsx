@@ -1,7 +1,7 @@
 import { Logo32 } from "@/assets/icons/logo-32";
 import { FormInput } from "@/components/form-input";
 import { Button } from "@/components/ui/button";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "@tanstack/react-router";
 import { getCookie, setCookie } from "cookies-next";
@@ -22,6 +22,16 @@ export const LOGIN_MUTATION = gql`
   }
 `;
 
+const GET_CURRENT_USER = gql`
+  query getCurrentUser {
+    getCurrentUser {
+      id
+      username
+      nickname
+    }
+  }
+`;
+
 export const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
@@ -34,6 +44,12 @@ export default function LoginPage() {
   const token = getCookie("token");
 
   const [login, { loading: isLogginIn }] = useMutation(LOGIN_MUTATION);
+  const [getUser] = useLazyQuery(GET_CURRENT_USER, {
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
+      localStorage.setItem("adminName", data.getCurrentUser.nickname);
+    },
+  });
 
   useEffect(() => {
     if (token) {
@@ -63,6 +79,8 @@ export default function LoginPage() {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
+
+      await getUser();
 
       await router.navigate({ to: "/home" });
     } catch (error: unknown) {

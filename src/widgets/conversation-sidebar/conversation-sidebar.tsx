@@ -21,31 +21,30 @@ export default function ConversationSidebar({
   }, [transcripts]);
 
   return (
-    <aside className="h-full w-1/4 min-w-[25%] border-l p-4 pb-16">
+    <ScrollArea className="flex h-full max-h-[40vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md shadow-lg">
       <SectionTitle title="История сообщений" />
-      <ScrollArea className="h-full">
-        <div className="flex h-full flex-col gap-3">
-          {transcripts.length === 0 ? (
-            <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-500">
-              <p>Нет сообщений :(</p>
-              <p className="text-sm">Начните запись чтобы увидеть историю</p>
-            </div>
-          ) : (
-            <>
-              {transcripts.map((message, index) => (
-                <ChatBubble
-                  key={index}
-                  sender={message.sender as ISender}
-                  message={message.text}
-                  name={message.sender}
-                  timestamp={message.timestamp}
-                />
-              ))}
-              <div ref={bottomRef} />
-            </>
-          )}
-        </div>
-      </ScrollArea>
-    </aside>
+      <div className="flex h-full flex-col gap-3">
+        {transcripts.length === 0 ? (
+          <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-500">
+            <p>Нет сообщений :(</p>
+            <p className="text-sm">Начните запись чтобы увидеть историю</p>
+          </div>
+        ) : (
+          <>
+            {transcripts.map((message, index) => (
+              <ChatBubble
+                key={index}
+                isLast={index === transcripts.length - 1}
+                sender={message.sender as ISender}
+                message={message.text}
+                name={message.sender}
+                timestamp={message.timestamp}
+              />
+            ))}
+            <div ref={bottomRef} />
+          </>
+        )}
+      </div>
+    </ScrollArea>
   );
 }

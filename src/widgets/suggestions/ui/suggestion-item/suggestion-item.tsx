@@ -1,5 +1,4 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Bell } from "lucide-react";
+import { IconCloudStar, IconCloudX } from "@tabler/icons-react";
 import React from "react";
 
 interface SuggestionItemProps {
@@ -14,13 +13,20 @@ export function SuggestionItem({
   variant = "active",
 }: SuggestionItemProps) {
   return (
-    <Alert
-      variant={variant === "active" ? "primary" : "disabled"}
-      className="cursor-pointer"
+    <div
+      className={`flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-md backdrop-blur-md transition hover:shadow-lg ${
+        variant === "previous" ? "opacity-30" : "opacity-100"
+      }`}
     >
-      <Bell className="h-4 w-4" />
-      <AlertTitle>{title}</AlertTitle>
-      <AlertDescription>{description}</AlertDescription>
-    </Alert>
+      <div className="flex items-center gap-2">
+        {variant === "previous" ? (
+          <IconCloudX size={24} className="text-indigo-400" />
+        ) : (
+          <IconCloudStar size={24} className="text-indigo-400" />
+        )}
+        <h3 className="text-lg font-semibold">{title}</h3>
+      </div>
+      <p className="text-muted-foreground text-sm">{description}</p>
+    </div>
   );
 }
