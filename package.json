@@ -1,7 +1,7 @@
 {
-  "name": "electron-shadcn",
-  "productName": "electron-shadcn Template",
-  "version": "1.0.0",
+  "name": "hj_mac_interface",
+  "productName": "hj_mac_interface ai call assistant",
+  "version": "0.0.1",
   "description": "Electron Forge with shadcn-ui (Vite + Typescript)",
   "main": ".vite/build/main.js",
   "private": true,
