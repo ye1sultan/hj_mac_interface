@@ -15,7 +15,7 @@ export function SuggestionItem({
 }: SuggestionItemProps) {
   return (
     <Alert
-      variant={variant === "active" ? "destructive" : "default"}
+      variant={variant === "active" ? "primary" : "disabled"}
       className="cursor-pointer"
     >
       <Bell className="h-4 w-4" />

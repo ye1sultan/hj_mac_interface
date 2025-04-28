@@ -21,7 +21,7 @@ export default function ConversationSidebar({
   }, [transcripts]);
 
   return (
-    <aside className="h-full w-1/4 border-l p-4 pb-16">
+    <aside className="h-full w-1/4 min-w-[25%] border-l p-4 pb-16">
       <SectionTitle title="История сообщений" />
       <ScrollArea className="h-full">
         <div className="flex h-full flex-col gap-3">

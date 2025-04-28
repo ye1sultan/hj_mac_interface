@@ -1,15 +1,19 @@
 import { Button } from "@/components/ui/button";
+import { formatAnalysis } from "@/helpers/formatAnalysis";
+import { IAnalysisData } from "@/types/analyze";
 import { IPartialTranscript, ITranscript } from "@/types/transcript";
 import React, { useState } from "react";
 
 interface RecordingControlProps {
   transcripts: ITranscript[];
   setTranscripts: React.Dispatch<React.SetStateAction<ITranscript[]>>;
+  setAnalyzeData: React.Dispatch<React.SetStateAction<IAnalysisData | null>>;
 }
 
 export function RecordingControl({
   transcripts,
   setTranscripts,
+  setAnalyzeData,
 }: RecordingControlProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [status, setStatus] = useState("Нажмите 'Начать' для начала записи");
@@ -205,7 +209,11 @@ export function RecordingControl({
       );
 
       const result = await response.json();
-      console.log("Результат анализа:", result);
+
+      const formatted = formatAnalysis(result);
+
+      setAnalyzeData(formatted);
+      console.log("Результат анализа:", formatted);
     } catch (error) {
       console.error("Ошибка отправки на анализ:", error);
     }

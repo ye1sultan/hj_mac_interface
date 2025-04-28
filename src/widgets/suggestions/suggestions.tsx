@@ -1,13 +1,15 @@
 "use client";
 
 import SectionTitle from "@/components/section-title/section-title";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { ITranscript } from "@/types/transcript";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SuggestionItem } from "./ui/suggestion-item/suggestion-item";
 
 interface ISuggestion {
   id: number;
   text: string;
+  variant: "active" | "previous";
 }
 
 export default function Suggestions({
@@ -15,7 +17,19 @@ export default function Suggestions({
 }: {
   transcripts: ITranscript[];
 }) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [transcripts]);
+
   const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
+  const [lastProcessedId, setLastProcessedId] = useState<number | null>(null);
+  const [lastProcessedText, setLastProcessedText] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     if (transcripts.length === 0) return;
@@ -23,6 +37,17 @@ export default function Suggestions({
     const lastTranscript = transcripts[transcripts.length - 1];
 
     if (lastTranscript.sender !== "system") return;
+
+    const currentId = lastTranscript.timestamp
+      ? new Date(lastTranscript.timestamp).getTime()
+      : Date.now();
+    if (lastProcessedId === currentId) return;
+
+    // Check if text is same as previous
+    if (lastProcessedText === lastTranscript.text) return;
+
+    setLastProcessedId(currentId);
+    setLastProcessedText(lastTranscript.text);
 
     fetch("https://017e-77-240-47-29.ngrok-free.app/api/v1/voice", {
       method: "POST",
@@ -39,7 +64,7 @@ export default function Suggestions({
         console.log("Fetched suggestions:", data);
 
         if (data.success && data.data?.message) {
-          const parsedSuggestions = data.data.message
+          const parsedSuggestions: ISuggestion[] = data.data.message
             .split("\n")
             .map((line: string, index: number) => ({
               id: Date.now() + index,
@@ -47,10 +72,14 @@ export default function Suggestions({
                 .replace(/^\d+\.\s*/, "")
                 .replace(/"/g, "")
                 .trim(),
+              variant: "active",
             }))
             .filter((item: ISuggestion) => item.text.length > 0);
 
-          setSuggestions((prev) => [...prev, ...parsedSuggestions]);
+          setSuggestions((prev) => [
+            ...prev.map((item) => ({ ...item, variant: "previous" as const })),
+            ...parsedSuggestions,
+          ]);
         } else {
           console.warn("Invalid response structure:", data);
         }
@@ -58,21 +87,25 @@ export default function Suggestions({
       .catch((error) => {
         console.error("Failed to fetch suggestions:", error);
       });
-  }, [transcripts]);
+  }, [transcripts, lastProcessedId, lastProcessedText]);
 
   return (
-    <main className="flex w-full flex-col p-4 pb-16">
+    <ScrollArea className="flex max-h-[500px] w-full flex-col overflow-y-auto p-4">
       <SectionTitle title="Предложения" />
-      <div className="flex h-full flex-col gap-4">
-        {suggestions.map((suggestion, idx) => (
-          <SuggestionItem
-            key={suggestion.id}
-            title={`Предложение ${idx + 1}`}
-            description={suggestion.text}
-            variant="active" // or differentiate if you want
-          />
-        ))}
+      <div className="grid h-full grid-cols-3 gap-4">
+        {suggestions.map(
+          (suggestion, idx) =>
+            suggestion.text.length <= 100 && (
+              <SuggestionItem
+                key={suggestion.id}
+                title={`Предложение ${idx + 1}`}
+                description={suggestion.text}
+                variant={suggestion.variant}
+              />
+            ),
+        )}
+        <div ref={bottomRef} />
       </div>
-    </main>
+    </ScrollArea>
   );
 }
