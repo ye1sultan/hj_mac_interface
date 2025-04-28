@@ -8,7 +8,7 @@ export interface ThemePreferences {
 }
 
 export async function getCurrentTheme(): Promise<ThemePreferences> {
-  const currentTheme = await window.themeMode.current();
+  const currentTheme = await window?.themeMode?.current();
   const localTheme = localStorage.getItem(THEME_KEY) as ThemeMode | null;
 
   return {

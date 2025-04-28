@@ -1,5 +1,6 @@
+import HomePage from "@/pages/HomePage";
+import LoginPage from "@/pages/login";
 import { createRoute } from "@tanstack/react-router";
-import HomePage from "../pages/HomePage";
 import { RootRoute } from "./__root";
 
 // TODO: Steps to add a new route:
@@ -23,8 +24,14 @@ import { RootRoute } from "./__root";
 
 export const HomeRoute = createRoute({
   getParentRoute: () => RootRoute,
-  path: "/",
+  path: "/home",
   component: HomePage,
 });
 
-export const rootTree = RootRoute.addChildren([HomeRoute]);
+export const LoginRoute = createRoute({
+  getParentRoute: () => RootRoute,
+  path: "/",
+  component: LoginPage,
+});
+
+export const rootTree = RootRoute.addChildren([HomeRoute, LoginRoute]);

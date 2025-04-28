@@ -1,1 +1,1 @@
-export type ISender = "user" | "client";
+export type ISender = string;
