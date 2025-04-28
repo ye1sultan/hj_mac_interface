@@ -13,7 +13,7 @@ export default function NavigationMenu() {
   const { t } = useTranslation();
 
   return (
-    <NavigationMenuBase className="text-muted-foreground px-2 font-mono">
+    <NavigationMenuBase className="text-muted-foreground font-mono">
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link to="/">

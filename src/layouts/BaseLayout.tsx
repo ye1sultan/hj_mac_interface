@@ -1,4 +1,7 @@
 import DragWindowRegion from "@/components/DragWindowRegion";
+import LangToggle from "@/components/LangToggle";
+import ToggleTheme from "@/components/ToggleTheme";
+import Footer from "@/components/template/Footer";
 import NavigationMenu from "@/components/template/NavigationMenu";
 import React from "react";
 
@@ -8,10 +11,17 @@ export default function BaseLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex h-screen flex-col p-4">
       <DragWindowRegion />
-      <NavigationMenu />
-      <main className="h-screen p-4 pb-16">{children}</main>
-    </>
+      <div className="flex items-center justify-between">
+        <NavigationMenu />
+        <div className="flex items-center gap-2">
+          <LangToggle />
+          <ToggleTheme />
+        </div>
+      </div>
+      <main className="h-full">{children}</main>
+      <Footer />
+    </div>
   );
 }
