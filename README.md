@@ -1,4 +1,5 @@
-# electron-shadcn
+# HJ Mac Interface
+## AI Call Assistant
 
 ## Libs and tools
 
