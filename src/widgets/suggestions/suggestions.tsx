@@ -47,6 +47,7 @@ export default function Suggestions({
     setLastProcessedId(currentId);
     setLastProcessedText(lastTranscript.text);
 
+    // for suggestions
     fetch("https://017e-77-240-47-29.ngrok-free.app/api/v1/voice", {
       method: "POST",
       headers: {

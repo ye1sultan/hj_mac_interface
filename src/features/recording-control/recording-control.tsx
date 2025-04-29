@@ -32,6 +32,7 @@ export function RecordingControl({
       const context = new AudioContext();
       setAudioContext(context);
 
+      // for messages
       const ws = new WebSocket("wss://fc3b-77-240-47-29.ngrok-free.app/ws");
 
       ws.onopen = () => {
@@ -194,6 +195,7 @@ export function RecordingControl({
       .map((t) => `${t.sender === "system" ? "Sales" : "User"}: ${t.text}`)
       .join("\n\n");
 
+    // for analyze
     try {
       const response = await fetch(
         "https://017e-77-240-47-29.ngrok-free.app/api/v1/sales_analyst",
