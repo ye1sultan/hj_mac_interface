@@ -1,4 +1,4 @@
-import { formatRussianDateTime } from "@/helpers/formatDate";
+// import { formatRussianDateTime } from "@/helpers/formatDate";
 import { ISender } from "@/types/sender";
 import { cn } from "@/utils/tailwind";
 import React from "react";
@@ -44,7 +44,7 @@ export function ChatBubble({
             isUser ? "text-neutral-300" : "text-neutral-400",
           )}
         >
-          {formatRussianDateTime(timestamp)} - {isUser ? adminName : 'Клиент'}
+          {timestamp} - {isUser ? adminName : 'Клиент'}
         </span>
       </div>
     </div>

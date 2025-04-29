@@ -30,7 +30,7 @@ export const HomeRoute = createRoute({
 
 export const LoginRoute = createRoute({
   getParentRoute: () => RootRoute,
-  path: "/",
+  path: "/login",
   component: LoginPage,
 });
 

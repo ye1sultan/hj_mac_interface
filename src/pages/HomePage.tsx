@@ -8,12 +8,20 @@ import ConversationAnalyze from "@/widgets/conversation-analyze/conversation-ana
 import ConversationSidebar from "@/widgets/conversation-sidebar/conversation-sidebar";
 // import { mockTranscripts } from "@/widgets/conversation-sidebar/lib/const";
 import Suggestions from "@/widgets/suggestions/suggestions";
+import { Navigate } from "@tanstack/react-router";
+import { getCookie } from "cookies-next";
 import React, { useState } from "react";
 // import { mockAnalysisData } from "./lib/const";
 
 export default function HomePage() {
   const [transcripts, setTranscripts] = useState<ITranscript[]>([]);
   const [analyzeData, setAnalyzeData] = useState<IAnalysisData | null>(null);
+
+  const token = getCookie("token");
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="flex h-full flex-col">

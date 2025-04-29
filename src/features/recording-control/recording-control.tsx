@@ -196,7 +196,7 @@ export function RecordingControl({
 
     try {
       const response = await fetch(
-        "https://017e-77-240-47-29.ngrok-free.app/api/v1/voice",
+        "https://017e-77-240-47-29.ngrok-free.app/api/v1/sales_analyst",
         {
           method: "POST",
           headers: {
@@ -204,7 +204,6 @@ export function RecordingControl({
           },
           body: JSON.stringify({
             text: combinedText,
-            context: { status: "analyze" },
           }),
         },
       );

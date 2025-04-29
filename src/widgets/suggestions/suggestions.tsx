@@ -36,8 +36,6 @@ export default function Suggestions({
 
     const lastTranscript = transcripts[transcripts.length - 1];
 
-    if (lastTranscript.sender !== "system") return;
-
     const currentId = lastTranscript.timestamp
       ? new Date(lastTranscript.timestamp).getTime()
       : Date.now();
@@ -100,13 +98,15 @@ export default function Suggestions({
     );
   }
 
+  console.log(suggestions);
+
   return (
     <div className="flex w-full flex-col">
       <SectionTitle title="Предложения" />
       <div className="grid h-full grid-cols-3 gap-4">
         {suggestions.map(
           (suggestion, idx) =>
-            suggestion.text.length <= 100 && (
+            suggestion.text.length <= 70 && (
               <SuggestionItem
                 key={suggestion.id}
                 title={`Предложение ${idx + 1}`}

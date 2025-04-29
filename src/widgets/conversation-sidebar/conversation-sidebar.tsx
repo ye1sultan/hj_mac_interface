@@ -31,6 +31,8 @@ export default function ConversationSidebar({
     );
   }
 
+  console.log(transcripts);
+
   return (
     <ScrollArea className="flex h-full max-h-[40vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
       <SectionTitle title="История сообщений" />
