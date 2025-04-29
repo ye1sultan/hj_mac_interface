@@ -14,8 +14,19 @@ import React from "react";
 export default function ConversationAnalyze({
   analyzeData,
 }: {
-  analyzeData: IAnalysisData;
+  analyzeData: IAnalysisData | null;
 }) {
+  if (!analyzeData) {
+    return (
+      <div className="flex flex-col">
+        <SectionTitle title="Анализ разговора" />
+        <p className="text-muted-foreground text-start text-lg font-medium">
+          Завершите запись разговора, чтобы получить анализ
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <SectionTitle title="Анализ разговора" />

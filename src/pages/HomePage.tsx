@@ -6,16 +6,14 @@ import { IAnalysisData } from "@/types/analyze";
 import { ITranscript } from "@/types/transcript";
 import ConversationAnalyze from "@/widgets/conversation-analyze/conversation-analyze";
 import ConversationSidebar from "@/widgets/conversation-sidebar/conversation-sidebar";
-import { mockTranscripts } from "@/widgets/conversation-sidebar/lib/const";
+// import { mockTranscripts } from "@/widgets/conversation-sidebar/lib/const";
 import Suggestions from "@/widgets/suggestions/suggestions";
 import React, { useState } from "react";
-import { mockAnalysisData } from "./lib/const";
+// import { mockAnalysisData } from "./lib/const";
 
 export default function HomePage() {
   const [transcripts, setTranscripts] = useState<ITranscript[]>([]);
-  const [analyzeData, setAnalyzeData] = useState<IAnalysisData | null>(
-    mockAnalysisData,
-  );
+  const [analyzeData, setAnalyzeData] = useState<IAnalysisData | null>(null);
 
   return (
     <div className="flex h-full flex-col">
@@ -31,11 +29,11 @@ export default function HomePage() {
             <ScrollArea className="flex h-full max-h-[40vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
               <Suggestions transcripts={transcripts} />
             </ScrollArea>
-            <ConversationSidebar transcripts={mockTranscripts} />
+            <ConversationSidebar transcripts={transcripts} />
           </div>
         </div>
         <ScrollArea className="flex h-full max-h-[45vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
-          {analyzeData && <ConversationAnalyze analyzeData={analyzeData} />}
+          <ConversationAnalyze analyzeData={analyzeData} />
         </ScrollArea>
       </div>
     </div>

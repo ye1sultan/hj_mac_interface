@@ -3,7 +3,7 @@
 import SectionTitle from "@/components/section-title/section-title";
 import { ITranscript } from "@/types/transcript";
 import React, { useEffect, useRef, useState } from "react";
-import { mockSuggestions } from "./lib/const";
+// import { mockSuggestions } from "./lib/const";
 import { SuggestionItem } from "./ui/suggestion-item/suggestion-item";
 
 interface ISuggestion {
@@ -25,8 +25,7 @@ export default function Suggestions({
     }
   }, [transcripts]);
 
-  const [suggestions, setSuggestions] =
-    useState<ISuggestion[]>(mockSuggestions);
+  const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
   const [lastProcessedId, setLastProcessedId] = useState<number | null>(null);
   const [lastProcessedText, setLastProcessedText] = useState<string | null>(
     null,
@@ -89,6 +88,17 @@ export default function Suggestions({
         console.error("Failed to fetch suggestions:", error);
       });
   }, [transcripts, lastProcessedId, lastProcessedText]);
+
+  if (suggestions.length === 0) {
+    return (
+      <div className="flex w-full flex-col">
+        <SectionTitle title="Предложения" />
+        <p className="text-muted-foreground text-lg font-medium">
+          Предложение будут поступать как только вы начнете разговор
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full flex-col">

@@ -20,8 +20,19 @@ export default function ConversationSidebar({
     }
   }, [transcripts]);
 
+  if (transcripts.length === 0) {
+    return (
+      <ScrollArea className="flex h-full max-h-[40vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
+        <SectionTitle title="История сообщений" />
+        <p className="text-muted-foreground text-lg font-medium">
+          История разговора будет отображаться здесь
+        </p>
+      </ScrollArea>
+    );
+  }
+
   return (
-    <ScrollArea className="flex h-full max-h-[40vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md shadow-lg">
+    <ScrollArea className="flex h-full max-h-[40vh] w-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
       <SectionTitle title="История сообщений" />
       <div className="flex h-full flex-col gap-3">
         {transcripts.length === 0 ? (
