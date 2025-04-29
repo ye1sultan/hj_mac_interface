@@ -7,8 +7,8 @@ declare const MAIN_WINDOW_VITE_NAME: string;
 // Preload types
 interface ThemeModeContext {
   toggle: () => Promise<boolean>;
-  dark: () => Promise<void>;
   light: () => Promise<void>;
+  dark: () => Promise<void>;
   system: () => Promise<boolean>;
   current: () => Promise<"light" | "dark" | "system">;
 }

@@ -25,7 +25,7 @@ export default function HomePage() {
 
   return (
     <div className="flex h-full flex-col">
-      {/* <div className="draglayer h-4"></div> */}
+      <div className="draglayer bg-transparent p-4" />
       <div className="flex h-full w-full flex-col items-start gap-4">
         <div className="flex h-1/2 w-full flex-col">
           <RecordingControl

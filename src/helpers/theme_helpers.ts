@@ -12,8 +12,8 @@ export async function getCurrentTheme(): Promise<ThemePreferences> {
   const localTheme = localStorage.getItem(THEME_KEY) as ThemeMode | null;
 
   return {
-    system: currentTheme,
-    local: localTheme,
+    system: "light",
+    local: "light",
   };
 }
 
@@ -56,9 +56,9 @@ export async function syncThemeWithLocal() {
 }
 
 function updateDocumentTheme(isDarkMode: boolean) {
-  if (!isDarkMode) {
-    document.documentElement.classList.remove("dark");
-  } else {
+  if (isDarkMode) {
     document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
   }
 }
